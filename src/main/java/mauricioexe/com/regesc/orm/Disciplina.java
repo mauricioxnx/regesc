@@ -2,6 +2,8 @@ package mauricioexe.com.regesc.orm;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Disciplina {
     @Id
@@ -13,6 +15,12 @@ public class Disciplina {
     @ManyToOne
     @JoinColumn(name = "professor_id", nullable = true)
     private Professor professor;
+    @ManyToMany
+            @JoinTable(
+                    name = "disciplina_aluno",
+                    joinColumns =@JoinColumn(name="disciplina_fk"),
+                  inverseJoinColumns =@JoinColumn(name= "aluno_fk"))
+    List<Aluno>alunos;
 
     public Professor getProfessor() {
         return this.professor;

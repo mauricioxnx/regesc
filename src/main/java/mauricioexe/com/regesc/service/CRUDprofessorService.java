@@ -1,5 +1,6 @@
 package mauricioexe.com.regesc.service;
 
+import mauricioexe.com.regesc.orm.Disciplina;
 import mauricioexe.com.regesc.orm.Professor;
 import mauricioexe.com.regesc.repository.ProfessorRepository;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class CRUDprofessorService {
             System.out.println("2- actualizar um Professor");
             System.out.println("3- vizualizar todos os professores");
             System.out.println("4- deletar um professor");
+            System.out.println("5- vizualizar um professor");
             int opcao = scanner.nextInt();
 
             switch (opcao) {
@@ -40,6 +42,9 @@ public class CRUDprofessorService {
                     break;
                 case 4:
                     this.delete(scanner);
+                    break;
+                case 5:
+                    this.views1(scanner);
                     break;
                 default:
                     Istrue = false;
@@ -111,5 +116,27 @@ public class CRUDprofessorService {
         long id = scanner.nextLong();
         this.professorRepository.deleteById(id);//senão achar o id mostrara uma exception
         System.out.println("professor apagado");
+    }
+    private void views1(Scanner scanner) {
+        System.out.print("Digite o ID do Professor: ");
+        long id = scanner.nextLong();
+
+        Optional<Professor> optional = this.professorRepository.findById(id);
+        if (optional.isPresent()) {
+            Professor professor = optional.get();
+            System.out.println("Professor {");
+            System.out.println("ID  "+ professor.getId());
+            System.out.println("Nome "+ professor.getNome());
+            System.out.println("Prontuario  "+ professor.getProntuario());
+            System.out.println("Disciplinas [");
+            for (Disciplina disciplina: professor.getDisciplina()){
+                System.out.println("id "+ disciplina.getId());
+                System.out.println("Nome "+disciplina.getNome());
+                System.out.println("Semestre "+disciplina.getSemestre());
+            }
+            System.out.println("]\n}");
+
+        }
+
     }
 }

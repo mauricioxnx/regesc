@@ -13,9 +13,17 @@ public class Professor {
     private String nome;
     @Column(unique = true)
     private String prontuario;
-
-    @OneToMany(mappedBy = "professor")
+//fechting
+    @OneToMany(mappedBy = "professor",fetch = FetchType.EAGER)
     private List<Disciplina> disciplina;
+
+    public List<Disciplina> getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(List<Disciplina> disciplina) {
+        this.disciplina = disciplina;
+    }
 
     public Professor(){ }
 
@@ -47,6 +55,7 @@ public class Professor {
     public void setProntuario(String prontuario) {
         this.prontuario = prontuario;
     }
+
 
     @Override
     public String toString() {
