@@ -1,5 +1,6 @@
 package mauricioexe.com.regesc;
 
+import mauricioexe.com.regesc.service.CRUDAlunoService;
 import mauricioexe.com.regesc.service.CRUDdisciplinaService;
 import mauricioexe.com.regesc.service.CRUDprofessorService;
 import org.springframework.boot.CommandLineRunner;
@@ -12,13 +13,15 @@ import java.util.Scanner;
 public class RegescApplication implements CommandLineRunner {
 	private CRUDprofessorService professorservice;
 	private CRUDdisciplinaService disciplinaService;
+	private CRUDAlunoService alunoService;
 
 	//os objetos passados por parametro são integrados diretamente pelo spring
 	//porque suas classes possuem anotação @service
-	public RegescApplication(CRUDprofessorService professorservice, CRUDdisciplinaService disciplinaService )
+	public RegescApplication(CRUDprofessorService professorservice, CRUDdisciplinaService disciplinaService, CRUDAlunoService alunoService)
 	{
 		this.professorservice = professorservice;
 		this.disciplinaService = disciplinaService;
+		this.alunoService = alunoService;
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(RegescApplication.class, args);
@@ -34,6 +37,7 @@ public class RegescApplication implements CommandLineRunner {
 			System.out.println("0- Sair");
 			System.out.println("1- Professor");
 			System.out.println("2- Disciplina");
+			System.out.println("3- Alunos");
 			int opcao = scanner.nextInt();
 
 			switch (opcao){
@@ -42,6 +46,9 @@ public class RegescApplication implements CommandLineRunner {
 					break;
 				case 2:
 					this.disciplinaService.menu(scanner);
+					break;
+				case 3:
+					this.alunoService.menu(scanner);
 					break;
 				default:
 					Istrue=false;

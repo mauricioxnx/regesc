@@ -12,15 +12,23 @@ public class Disciplina {
     @Column(nullable = false)
     private String nome;
     private Integer semestre;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "professor_id", nullable = true)
     private Professor professor;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
             @JoinTable(
                     name = "disciplina_aluno",
                     joinColumns =@JoinColumn(name="disciplina_fk"),
                   inverseJoinColumns =@JoinColumn(name= "aluno_fk"))
     List<Aluno>alunos;
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
 
     public Professor getProfessor() {
         return this.professor;
@@ -72,6 +80,7 @@ public class Disciplina {
                 ", nome='" + nome + '\'' +
                 ", semestre=" + semestre +
                 ", professor=" + professor +
+                ", alunos=" + alunos +
                 '}';
     }
 }
