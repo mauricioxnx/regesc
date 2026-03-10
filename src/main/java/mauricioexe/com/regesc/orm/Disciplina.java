@@ -3,6 +3,7 @@ package mauricioexe.com.regesc.orm;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Disciplina {
@@ -20,13 +21,13 @@ public class Disciplina {
                     name = "disciplina_aluno",
                     joinColumns =@JoinColumn(name="disciplina_fk"),
                   inverseJoinColumns =@JoinColumn(name= "aluno_fk"))
-    List<Aluno>alunos;
+    Set<Aluno>alunos;
 
-    public List<Aluno> getAlunos() {
+    public Set<Aluno> getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(List<Aluno> alunos) {
+    public void setAlunos(Set<Aluno> alunos) {
         this.alunos = alunos;
     }
 

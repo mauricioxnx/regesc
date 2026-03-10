@@ -8,10 +8,7 @@ import mauricioexe.com.regesc.repository.DisciplinaRepository;
 import mauricioexe.com.regesc.repository.ProfessorRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 @Service
 public class CRUDdisciplinaService {
@@ -75,7 +72,7 @@ public class CRUDdisciplinaService {
         Optional<Professor> optionalProfessor = this.professorRepository.findById(professor);
         if (optionalProfessor.isPresent()) {
             Professor professorEntity = optionalProfessor.get();
-            List<Aluno> alunos = this.matricular(scanner);
+            Set<Aluno> alunos = this.matricular(scanner);
 
             Disciplina disciplina = new Disciplina(nome, semestre, professorEntity);
             disciplina.setAlunos(alunos);
@@ -107,7 +104,7 @@ public class CRUDdisciplinaService {
             Optional<Professor> optionalProfessor = this.professorRepository.findById(professor);
             if (optionalProfessor.isPresent()) {
                 Professor professorEntity = optionalProfessor.get();
-                List<Aluno> alunos = this.matricular(scanner);
+                Set<Aluno> alunos = this.matricular(scanner);
 
                 disciplina.setNome(nome);
                 disciplina.setSemestre(semestre);
@@ -139,9 +136,9 @@ public class CRUDdisciplinaService {
     }
 
 
-    private List<Aluno> matricular(Scanner scanner) {
+    private Set<Aluno> matricular(Scanner scanner) {
         Boolean isTrue = true;
-        List<Aluno> alunos = new ArrayList<Aluno>();
+          Set<Aluno> alunos = new HashSet<>();
         while (isTrue) {
             System.out.println("ID do aluno a ser matriculado(Digite 0 para sair):");
             long alunoID = scanner.nextLong();
@@ -169,7 +166,7 @@ public class CRUDdisciplinaService {
         Optional<Disciplina> optionalDisciplina = this.disciplinaRepository.findById(id);
         if(optionalDisciplina.isPresent()){
             Disciplina disciplina= optionalDisciplina.get();
-            List<Aluno> novosAlunos = this.matricular(scanner);
+            Set<Aluno> novosAlunos = this.matricular(scanner);
             disciplina.getAlunos().addAll(novosAlunos);
             this.disciplinaRepository.save(disciplina);
         }

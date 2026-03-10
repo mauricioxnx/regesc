@@ -3,6 +3,7 @@ package mauricioexe.com.regesc.orm;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Aluno {
@@ -10,10 +11,10 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
-    private String Nome;
-    private  Integer Idade;
+    private String nome;
+    private   Integer idade;
     @ManyToMany(mappedBy = "alunos", fetch = FetchType.LAZY)
-    List<Disciplina>disciplinas;
+    Set<Disciplina> disciplinas;
 
     public Aluno(){}
 
@@ -26,33 +27,33 @@ public class Aluno {
     }
 
     public String getNome() {
-        return Nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-        Nome = nome;
+        nome = nome;
     }
 
     public Integer getIdade() {
-        return Idade;
+        return idade;
     }
 
     public void setIdade(Integer idade) {
-        Idade = idade;
+        idade = idade;
     }
 
-    public List<Disciplina> getDisciplinas() {
+    public Set<Disciplina> getDisciplinas() {
         return disciplinas;
     }
 
-    public void setDisciplinas(List<Disciplina> disciplinas) {
+    public void setDisciplinas(Set<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
 
-    public Aluno(long id, String nome, Integer idade, List<Disciplina> disciplinas) {
+    public Aluno(long id, String nome, Integer idade, Set<Disciplina> disciplinas) {
         this.id = id;
-        Nome = nome;
-        Idade = idade;
+
+        idade = idade;
         this.disciplinas = disciplinas;
     }
 
@@ -60,8 +61,8 @@ public class Aluno {
     public String toString() {
         return "Aluno{" +
                 "id=" + id +
-                ", Nome='" + Nome + '\'' +
-                ", Idade=" + Idade +
+                ", Nome='" + nome + '\'' +
+                ", Idade=" + idade +
                 '}';
     }
 }
